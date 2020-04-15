@@ -1,5 +1,8 @@
 # vim:ft=zsh ts=2 sw=2 sts=2
 
+NEWLINE='
+'
+
 if [[ -z "$BASE_PATH" ]]; then
     # Get the path to file this code is executing in; then
     # get the absolute path and strip the filename.
@@ -10,12 +13,12 @@ fi
 if [ -z "$PROMPT_ORDER" ]; then
   PROMPT_ORDER=(
     #color
+    #nodeSystemVersion
+    #requiredNodeVersion
+    #packageVersion
+    #versionControl
     id
-    nodeSystemVersion
-    requiredNodeVersion
-    packageVersion
-    versionControl
-    cursor
+    #cursor
   )
 fi
 
@@ -24,8 +27,9 @@ if [ -z "$RPROMPT_ORDER" ]; then
   )
 fi
 
-source "$BASE_PATH/functions/shell.zsh"
+source "$BASE_PATH/functions/color.zsh"
 source "$BASE_PATH/functions/render.zsh"
+source "$BASE_PATH/functions/shell.zsh"
 
 for section in $(union $PROMPT_ORDER $RPROMPT_ORDER); do
   if [[ -f "$BASE_PATH/sections/$section.zsh" ]]; then
@@ -38,12 +42,14 @@ done
 prompt() {
   RETVAL=$?
 
+  echo -n $NEWLINE
   compose $PROMPT_ORDER
 }
 
 rprompt() {
   RETVAL=$?
 
+  echo $NEWLINE
   compose $RPROMPT_ORDER
 }
 

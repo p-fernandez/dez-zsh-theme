@@ -1,4 +1,4 @@
-CURSOR="  "
+CURSOR="⟦   ⟧ "
 CURSOR_BG=black
 
 cursor() {
